@@ -23,9 +23,6 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     HomeScreen(
-                        onBookmarkClicked = {},
-                        onDeleteNote = {},
-                        onNoteClicked = {}
                     )
                 }
             }

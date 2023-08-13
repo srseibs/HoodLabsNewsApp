@@ -1,12 +1,11 @@
-package hoods.com.noteapplication.presentation.home
+package hoods.com.noteapplication.presentation.bookmark
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
-import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
-import androidx.compose.foundation.lazy.staggeredgrid.itemsIndexed
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -19,33 +18,32 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import hoods.com.noteapplication.domain.Note
 import hoods.com.noteapplication.domain.fakeNotes
+import hoods.com.noteapplication.presentation.home.NoteCard
 import hoods.com.noteapplication.ui.theme.NoteApplicationTheme
 import hoods.com.noteapplication.util.Resource
 
 @Composable
-fun HomeScreen(
-    viewModel: HomeViewModel = hiltViewModel(),
+fun BookmarkScreen(
+    viewModel: BookmarkViewModel = hiltViewModel(),
 ) {
     val state = viewModel.state.collectAsState().value
 
-    HomeScreenContent(
+    BookmarkScreenContent(
         state = state,
-        onBookmarkClicked = { },
-        onDeleteNote = { },
+        onBookmarkChange = {},
+        onDeleteNote = {},
         onNoteClicked = { }
     )
-
 }
 
 @Composable
-private fun HomeScreenContent(
-    state: HomeState,
+fun BookmarkScreenContent(
+    state: BookmarkState,
     modifier: Modifier = Modifier,
-    onBookmarkClicked: (note: Note) -> Unit,
+    onBookmarkChange: (note: Note) -> Unit,
     onDeleteNote: (id: Long) -> Unit,
     onNoteClicked: (id: Long) -> Unit,
 ) {
-
     when (val resource = state.notes) {
         is Resource.Loading -> {
             Box(
@@ -74,8 +72,7 @@ private fun HomeScreenContent(
         is Resource.Success -> {
             val notes = resource.data
 
-            LazyVerticalStaggeredGrid(
-                columns = StaggeredGridCells.Fixed(2),
+            LazyColumn(
                 contentPadding = PaddingValues(4.dp),
                 modifier = modifier,
             ) {
@@ -84,7 +81,7 @@ private fun HomeScreenContent(
                     NoteCard(
                         index = index,
                         note = item,
-                        onBookmarkClicked = onBookmarkClicked,
+                        onBookmarkClicked = onBookmarkChange,
                         onDeleteNote = onDeleteNote,
                         onNoteClicked = onNoteClicked,
                     )
@@ -98,11 +95,11 @@ private fun HomeScreenContent(
 
 @Preview(showSystemUi = true, showBackground = true)
 @Composable
-fun HomeScreenContentPreview() {
+fun BookmarkScreenContentPreview() {
     NoteApplicationTheme {
-        HomeScreenContent(
-            state = HomeState(notes = Resource.Success(fakeNotes)),
-            onBookmarkClicked = {},
+        BookmarkScreenContent(
+            state = BookmarkState(notes = Resource.Success(fakeNotes)),
+            onBookmarkChange = {},
             onDeleteNote = {},
             onNoteClicked = {}
         )
@@ -110,11 +107,11 @@ fun HomeScreenContentPreview() {
 }
 @Preview(name = "ERROR", showSystemUi = true, showBackground = true)
 @Composable
-fun HomeScreenContentPreview2() {
+fun BookmarkScreenContentPreview2() {
     NoteApplicationTheme {
-        HomeScreenContent(
-            state = HomeState(notes = Resource.Error("Some fake error message here")),
-            onBookmarkClicked = {},
+        BookmarkScreenContent(
+            state = BookmarkState(notes = Resource.Error("Some fake error message here")),
+            onBookmarkChange = {},
             onDeleteNote = {},
             onNoteClicked = {}
         )
