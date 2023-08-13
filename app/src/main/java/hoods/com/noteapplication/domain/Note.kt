@@ -14,7 +14,7 @@ data class Note(
 val fakeNotes = listOf(
     Note(0,
         title = "First Note",
-        content = "The content of this note",
+        content = "The content of this note. The content of this note. The content of this note.",
         creationDate = Date(),
         isBookmarked = false
     ),
@@ -26,7 +26,7 @@ val fakeNotes = listOf(
     ),
     Note(2,
         title = "Third Note",
-        content = "The content of this note Bookmarked",
+        content = "The content of this note Bookmarked. Hello hello, can you hear me?",
         creationDate = Date(),
         isBookmarked = true
     ),

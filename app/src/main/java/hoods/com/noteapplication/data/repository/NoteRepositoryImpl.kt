@@ -30,8 +30,8 @@ class NoteRepositoryImpl @Inject constructor(
 
 
     override fun getBookmarkedNotes(): Flow<List<Note>> =
-        noteDao.getBookmarkedNotes().map {entityList->
-            entityList.map{ it.toNote() }
+        noteDao.getBookmarkedNotes().map { entityList ->
+            entityList.map { it.toNote() }
         }
 
 }

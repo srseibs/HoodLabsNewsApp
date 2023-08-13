@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hoods.com.noteapplication.domain.Note
 import hoods.com.noteapplication.domain.NoteRepository
-import hoods.com.noteapplication.domain.fakeNotes
 import hoods.com.noteapplication.util.Resource
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -40,11 +39,10 @@ class HomeViewModel @Inject constructor(
     private fun getAllNotes() {
         _state.value = HomeState(notes = Resource.Loading)
         noteRepository.getAllNotes().onEach {
-            _state.value = HomeState(notes = Resource.Success(fakeNotes))
+            _state.value = HomeState(notes = Resource.Success(it))
         }.catch {
             _state.value = HomeState(notes = Resource.Error(it.message))
         }.launchIn(viewModelScope)
-
     }
 }
 
