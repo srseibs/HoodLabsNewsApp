@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "hoods.com.noteapplication"
-        minSdk 24
+        minSdk 26
         //noinspection OldTargetApi
         targetSdk 33
         versionCode 1
@@ -91,4 +91,8 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
     testImplementation "androidx.room:room-testing:$room_version"
     androidTestImplementation "androidx.room:room-testing:$room_version"
+
+    // SDP/SSP Compose
+    implementation 'com.github.Kaaveh:sdp-compose:1.1.0'
+
 }

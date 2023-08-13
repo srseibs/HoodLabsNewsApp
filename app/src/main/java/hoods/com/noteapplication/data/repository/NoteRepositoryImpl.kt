@@ -17,7 +17,6 @@ class NoteRepositoryImpl @Inject constructor(
             entityList.map{ it.toNote() }
         }
 
-
     override fun getNoteById(noteId: Long): Flow<Note> =
         noteDao.getNoteById(noteId).map { it.toNote() }
 
