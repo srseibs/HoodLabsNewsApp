@@ -8,7 +8,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import dagger.hilt.android.AndroidEntryPoint
-import hoods.com.noteapplication.presentation.home.HomeScreen
+import hoods.com.noteapplication.presentation.detail.DetailScreen
 import hoods.com.noteapplication.ui.theme.NoteApplicationTheme
 
 @AndroidEntryPoint
@@ -22,7 +22,8 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    HomeScreen(
+                    DetailScreen(
+                        navigateUp = {},
                     )
                 }
             }

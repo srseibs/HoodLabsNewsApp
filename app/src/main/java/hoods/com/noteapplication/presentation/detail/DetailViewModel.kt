@@ -24,10 +24,7 @@ class DetailViewModel @Inject constructor(
 ): ViewModel() {
 
     private var noteId = NEW_NOTE_ID
-    init {
-        noteId = savedStateHandle[NOTE_ID_HANDLE_KEY] ?: NEW_NOTE_ID
-        initialize()
-    }
+
 
     var state by mutableStateOf(DetailState())
         private set
@@ -45,6 +42,11 @@ class DetailViewModel @Inject constructor(
                 isBookmarked = isBookmarked, // TODO: he skipped this ?!
             )
         }
+
+    init {
+        noteId = savedStateHandle[NOTE_ID_HANDLE_KEY] ?: NEW_NOTE_ID
+        initialize()
+    }
 
     private fun initialize() {
         val creatingNewNote = (noteId == NEW_NOTE_ID)
