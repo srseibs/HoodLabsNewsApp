@@ -30,7 +30,7 @@ class DetailViewModel @Inject constructor(
         private set
 
     val isFormNotBlank: Boolean
-        get() = state.title.isNotEmpty() && state.content.isNotEmpty()
+        get() = state.title.isNotEmpty() || state.content.isNotEmpty()
 
     private val noteFromState: Note
         get() = state.run {
