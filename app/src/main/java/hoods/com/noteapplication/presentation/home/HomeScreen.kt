@@ -25,16 +25,16 @@ import hoods.com.noteapplication.util.Resource
 @Composable
 fun HomeScreen(
     viewModel: HomeViewModel = hiltViewModel(),
+    onNoteClicked: (id:Long) -> Unit,
 ) {
     val state = viewModel.state.collectAsState().value
 
     HomeScreenContent(
         state = state,
-        onBookmarkClicked = { },
-        onDeleteNote = { },
-        onNoteClicked = { }
+        onBookmarkClicked = { viewModel.toggleBookmarked(it) },
+        onDeleteNote = { viewModel.deleteNote(it) },
+        onNoteClicked = onNoteClicked
     )
-
 }
 
 @Composable

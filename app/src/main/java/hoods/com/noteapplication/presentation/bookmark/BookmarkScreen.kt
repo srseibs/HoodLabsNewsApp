@@ -25,14 +25,15 @@ import hoods.com.noteapplication.util.Resource
 @Composable
 fun BookmarkScreen(
     viewModel: BookmarkViewModel = hiltViewModel(),
+    onNoteClicked: (id: Long) -> Unit,
 ) {
     val state = viewModel.state.collectAsState().value
 
     BookmarkScreenContent(
         state = state,
-        onBookmarkChange = {},
-        onDeleteNote = {},
-        onNoteClicked = { }
+        onBookmarkChange = { viewModel.onBookmarkChange(it) },
+        onDeleteNote = { viewModel.onDeleteNote(it)},
+        onNoteClicked = { onNoteClicked }
     )
 }
 

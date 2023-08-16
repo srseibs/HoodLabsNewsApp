@@ -1,5 +1,6 @@
 package hoods.com.noteapplication.presentation.detail
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -9,13 +10,13 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import hoods.com.noteapplication.domain.Note
 import hoods.com.noteapplication.domain.NoteRepository
+import hoods.com.noteapplication.presentation.navigation.Screens
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import java.util.Date
 import javax.inject.Inject
 
 const val NEW_NOTE_ID = -1L
-const val NOTE_ID_HANDLE_KEY = "note_ID"
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
@@ -23,8 +24,7 @@ class DetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
 ): ViewModel() {
 
-    private var noteId = NEW_NOTE_ID
-
+    private var noteId: Long = NEW_NOTE_ID
 
     var state by mutableStateOf(DetailState())
         private set
@@ -44,7 +44,9 @@ class DetailViewModel @Inject constructor(
         }
 
     init {
-        noteId = savedStateHandle[NOTE_ID_HANDLE_KEY] ?: NEW_NOTE_ID
+        noteId = savedStateHandle[Screens.ARG_KEY_NOTE_ID] ?: NEW_NOTE_ID
+
+        Log.d("DetailViewModel", "noteId : $noteId")
         initialize()
     }
 
