@@ -1,6 +1,5 @@
 package hoods.com.noteapplication.presentation.detail
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -30,7 +29,7 @@ class DetailViewModel @Inject constructor(
         private set
 
     val isFormNotBlank: Boolean
-        get() = state.title.isNotEmpty() || state.content.isNotEmpty()
+        get() = state.title.isNotEmpty() && state.content.isNotEmpty()
 
     private val noteFromState: Note
         get() = state.run {
@@ -39,14 +38,12 @@ class DetailViewModel @Inject constructor(
                 title = title,
                 content = content,
                 creationDate = creationDate,
-                isBookmarked = isBookmarked, // TODO: he skipped this ?!
+                isBookmarked = isBookmarked,
             )
         }
 
     init {
         noteId = savedStateHandle[Screens.ARG_KEY_NOTE_ID] ?: NEW_NOTE_ID
-
-        Log.d("DetailViewModel", "noteId : $noteId")
         initialize()
     }
 

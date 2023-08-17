@@ -178,8 +178,10 @@ private fun NotesTextField(
         colors = TextFieldDefaults.colors(
             disabledContainerColor = Color.Transparent,
             focusedContainerColor = Color.Transparent,
+            unfocusedContainerColor = Color.Transparent,
             unfocusedIndicatorColor = Color.Transparent,
             focusedIndicatorColor = Color.Transparent,
+
         ),
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Text,

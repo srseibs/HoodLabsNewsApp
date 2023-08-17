@@ -66,47 +66,55 @@ fun NoteApplication(navController: NavHostController) {
 
     Scaffold(
         bottomBar = {
-        BottomAppBar(actions = {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-            ) {
+            BottomAppBar(
+                actions = {
+                    Row(
+                        horizontalArrangement = Arrangement.Center,
+                    ) {
 
-                InputChipFor(
-                    tabScreen = TabScreen.Home,
-                    currentTab = currentTab,
-                    onClick = {
-                        currentTab = TabScreen.Home
-                        navController.navigate(Screens.Home.route){
-                            popUpTo(Screens.Home.route){ inclusive = true }
+                        InputChipFor(
+                            tabScreen = TabScreen.Home,
+                            currentTab = currentTab,
+                            onClick = {
+                                currentTab = TabScreen.Home
+                                navController.navigate(Screens.Home.route) {
+                                    popUpTo(Screens.Home.route) { inclusive = true }
+                                }
+                            }
+                        )
+                        Spacer(modifier = Modifier.width(12.dp))
+                        InputChipFor(
+                            tabScreen = TabScreen.Bookmarks,
+                            currentTab = currentTab,
+                            onClick = {
+                                currentTab = TabScreen.Bookmarks
+                                navController.navigate(Screens.Bookmark.route)
+                            }
+                        )
+
+                    }
+                },
+
+                floatingActionButton = {
+                    FloatingActionButton(
+                        onClick = {
+                            navController.navigate(
+                                route = Screens.Detail.routeWithArgs(NEW_NOTE_ID)
+                            )
                         }
+                    ) {
+                        Icon(imageVector = Icons.Default.Add, contentDescription = "Add Note")
                     }
-                )
-                Spacer(modifier = Modifier.width(12.dp))
-                InputChipFor(
-                    tabScreen = TabScreen.Bookmarks,
-                    currentTab = currentTab,
-                    onClick = {
-                        currentTab = TabScreen.Bookmarks
-                        navController.navigate(Screens.Bookmark.route)
-                    }
-                )
-
-            }
-        })
-    },
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
-                    navController.navigate(
-                        route = Screens.Detail.routeWithArgs(NEW_NOTE_ID))
                 }
-            ) {
-                Icon(imageVector = Icons.Default.Add, contentDescription = "Add Note")
-            }
-        }
-    ) {
-        Box(modifier = Modifier.fillMaxWidth().padding(it)) {
+            )
+        },
+
+        ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(it)
+        ) {
             NoteNavigation(navHostController = navController)
         }
     }
