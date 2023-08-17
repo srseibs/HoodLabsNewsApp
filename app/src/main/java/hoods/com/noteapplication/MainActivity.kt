@@ -24,8 +24,10 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background,
                     contentColor = MaterialTheme.colorScheme.onBackground,
                 ) {
+
                     val navController = rememberNavController()
-                    NoteNavigation(navHostController = navController)                }
+                    NoteNavigation(navHostController = navController)
+                }
             }
         }
     }

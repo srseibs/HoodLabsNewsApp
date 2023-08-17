@@ -29,12 +29,10 @@ fun BookmarkScreen(
 ) {
     val state = viewModel.state.collectAsState().value
 
-    BookmarkScreenContent(
-        state = state,
+    BookmarkScreenContent(state = state,
         onBookmarkChange = { viewModel.onBookmarkChange(it) },
-        onDeleteNote = { viewModel.onDeleteNote(it)},
-        onNoteClicked = { onNoteClicked }
-    )
+        onDeleteNote = { viewModel.onDeleteNote(it) },
+        onNoteClicked = { onNoteClicked })
 }
 
 @Composable
@@ -48,8 +46,7 @@ fun BookmarkScreenContent(
     when (val resource = state.notes) {
         is Resource.Loading -> {
             Box(
-                modifier = Modifier
-                    .fillMaxSize(),
+                modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center,
             ) {
                 CircularProgressIndicator(modifier = Modifier.fillMaxWidth(0.4f))
@@ -58,8 +55,7 @@ fun BookmarkScreenContent(
 
         is Resource.Error -> {
             Box(
-                modifier = Modifier
-                    .fillMaxSize(),
+                modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center,
             ) {
                 Text(
@@ -98,23 +94,20 @@ fun BookmarkScreenContent(
 @Composable
 fun BookmarkScreenContentPreview() {
     NoteApplicationTheme {
-        BookmarkScreenContent(
-            state = BookmarkState(notes = Resource.Success(fakeNotes)),
+        BookmarkScreenContent(state = BookmarkState(notes = Resource.Success(fakeNotes)),
             onBookmarkChange = {},
             onDeleteNote = {},
-            onNoteClicked = {}
-        )
+            onNoteClicked = {})
     }
 }
+
 @Preview(name = "ERROR", showSystemUi = true, showBackground = true)
 @Composable
 fun BookmarkScreenContentPreview2() {
     NoteApplicationTheme {
-        BookmarkScreenContent(
-            state = BookmarkState(notes = Resource.Error("Some fake error message here")),
+        BookmarkScreenContent(state = BookmarkState(notes = Resource.Error("Some fake error message here")),
             onBookmarkChange = {},
             onDeleteNote = {},
-            onNoteClicked = {}
-        )
+            onNoteClicked = {})
     }
 }
