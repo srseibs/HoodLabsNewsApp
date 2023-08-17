@@ -32,7 +32,9 @@ fun BookmarkScreen(
     BookmarkScreenContent(state = state,
         onBookmarkChange = { viewModel.onBookmarkChange(it) },
         onDeleteNote = { viewModel.onDeleteNote(it) },
-        onNoteClicked = { onNoteClicked })
+        onNoteClicked = onNoteClicked
+
+    )
 }
 
 @Composable

@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -22,6 +23,10 @@ class BookmarkViewModel @Inject constructor(
     private val _state: MutableStateFlow<BookmarkState> = MutableStateFlow(BookmarkState())
     val state: StateFlow<BookmarkState> = _state.asStateFlow()
 
+    init {
+        getBookmarkedNotes()
+    }
+
     private fun getBookmarkedNotes() {
         repository.getBookmarkedNotes().onEach {
             _state.value = BookmarkState(
@@ -31,7 +36,7 @@ class BookmarkViewModel @Inject constructor(
             _state.value = BookmarkState(
                 notes = Resource.Error(it.localizedMessage)
             )
-        }
+        }.launchIn(viewModelScope)
     }
 
     fun onBookmarkChange(note: Note) {

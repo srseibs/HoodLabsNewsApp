@@ -32,12 +32,19 @@ fun NoteNavigation(
     ) {
         composable(Screens.Home.route) {
             HomeScreen(onNoteClicked = {
-                navHostController.navigate(Screens.Detail.routeWithArgs(it))
+                navHostController.navigate(Screens.Detail.routeWithArgs(it)){
+                    popUpTo(route = Screens.Home.route)
+                }
+
             })
         }
 
         composable(Screens.Bookmark.route) {
-            BookmarkScreen(onNoteClicked = { navHostController.popBackStack() })
+            BookmarkScreen(
+                onNoteClicked = {
+                    navHostController.navigate(Screens.Detail.routeWithArgs(it) )
+                }
+            )
         }
 
         composable(
